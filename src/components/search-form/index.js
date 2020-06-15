@@ -1,7 +1,7 @@
 //@flow
 import * as React from 'react';
 import {InputText} from '../../ui/input-text';
-import {useDefferedValue} from '../../lib/useDefferedValue';
+import {useDeferredValue} from '../../lib/useDeferredValue';
 
 type Props = {
     initialQuery?: string,
@@ -12,7 +12,7 @@ type Props = {
 export const SearchForm = ({initialQuery = '', onSubmit, submitTimeout = 250} : Props) => {
     
     const [value, setValue] = React.useState(initialQuery);
-    const defferedValue = useDefferedValue(value, submitTimeout);
+    const defferedValue = useDeferredValue(value, submitTimeout);
     
     React.useEffect(()=>onSubmit(defferedValue), [defferedValue])
     

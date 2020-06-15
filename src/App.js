@@ -1,28 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {GithubRestClient} from "./api/request";
-import {useHistory, useLocation, useParams, BrowserRouter} from 'react-router-dom';
-import {Switch, Route} from "react-router";
-import {SearchForm} from './components/search-form';
-import { Shell } from './components/shell';
-
-
-
-
+import * as React from 'react';
+import {BrowserRouter, Route} from 'react-router-dom';
+import {Root} from './components/root';
 
 function App() {
-    
-
     return (
-        <div className="App">
         <BrowserRouter>
-          <Route path={"/:query/(sort=:sort)?/(order=:sort)?"}>
-              <Shell/>
-            
-          </Route>
-          </BrowserRouter>
-        </div>
-
-);
+            <Route path={"/:query/(sort=:sort)?/(order=:sort)?"}><Root/></Route>
+        </BrowserRouter>
+    );
 }
 
 export default App;
