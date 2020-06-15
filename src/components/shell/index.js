@@ -1,55 +1,27 @@
 import * as React from 'react';
 import { useParams, useLocation, useHistory } from 'react-router';
-import {SearchForm} from '../search-form';
+import { SearchForm } from '../search-form';
 
-
-const useRepositories = (query) => {
-    const [result, setResult] = React.useState(null);
-    const [fetching, setFetching] = React.useState(false);
-    const [error, setError] = React.useState(null);
-    const [timestamp, setTimestamp] = React.useState(null);
-    
-    React.useEffect(()=>{
-        if(query!==''){
-            const abortController = new AbortController();
-            setFetching(true);
-            fetch(`https://api.githubaaaa.com/search/repositories?q=${encodeURI(query)}`, {signal:abortController.signal})
-                .then(r=>r.json())
-                .then(data => {
-                    setResult(data);
-                    setTimestamp(Date.now());
-                    setError(null);
-                })
-                .catch(error => {
-                    if(error.name !== 'AbortError') throw error
-                })
-                .catch(err => setError(err.toString()))
-                .finally(()=>setFetching(false));
-                
-            return ()=>abortController.abort();
-        }
-    }, [query]);
-
-    return {result, fetching, error, timestamp};
-}
+import { useEndpoint } from '../../api/useEndpoint';
+import { search as searchRepositoriesEndpoint, SORT_STARS, ORDER_ASC, ORDER_DESC, SORT_FORKS, SORT_BEST_MATCH } from '../../api/endpoints/repositories';
 
 export const Shell = () => {
     const params = useParams();
     const history = useHistory();
-
     const [searchQuery, setSearchQuery] = React.useState(params.query);
-    const {result, fetching, error, timestamp} = useRepositories(searchQuery);
-    
-    React.useEffect(()=>history.push(`/${searchQuery}/`), [timestamp])
-    
-    
-    React.useEffect(()=>{
-        
-    }, [searchQuery]);
+    const [sort, setSort] = React.useState(params.sort || SORT_STARS);
+    const [order, setOrder] = React.useState(params.order || ORDER_ASC);
+
+    const { data, fetching, error, timestamp } = useEndpoint(searchRepositoriesEndpoint(searchQuery, sort, order));
+
+    React.useEffect(() => history.push(`/${searchQuery}/sort=${sort}/order=${order}`), [timestamp])
 
     return <>
-                {!!error && JSON.stringify(error)}
-                <SearchForm onSubmit={setSearchQuery} initialQuery={searchQuery} submitTimeout={1000}/>
-                {fetching ? 'fetching...' : JSON.stringify({searchQuery, result})}
-            </>
+        {!!error && JSON.stringify(error)}
+        <button onClick={() => setSort(SORT_STARS)}>{sort === SORT_STARS ? <b>STARS</b> : 'STARS'}</button>
+        <button onClick={() => setSort(SORT_FORKS)}>{sort === SORT_FORKS ? <b>FORKS</b> : 'FORKS'}</button>
+        <button onClick={() => setSort(SORT_BEST_MATCH)}>{sort === SORT_BEST_MATCH ? <b>BEST</b> : 'BEST'}</button>
+        <SearchForm onSubmit={setSearchQuery} initialQuery={searchQuery} submitTimeout={1000} />
+        {fetching ? 'fetching...' : JSON.stringify({ searchQuery, data })}
+    </>
 }
