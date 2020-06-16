@@ -1,10 +1,11 @@
 //@flow
 import * as React from 'react';
 
+// Todo: flow typing
 /** basically an useState with debounced setState function */
-export const useDeferredValue = (value:any, timeout:number) => {
+export const useDeferredValue = <T>(value: T, timeout:number) : T => {
     
-    const [deferredValue, setDeferredValue] = React.useState(value);
+    const [deferredValue, setDeferredValue] = React.useState<T>(value);
 
     React.useEffect(()=>{
         const timer = setTimeout(()=>setDeferredValue(value), timeout);

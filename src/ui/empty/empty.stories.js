@@ -1,5 +1,6 @@
 /* eslint-disable import/no-default-export */
 import React from "react"
+
 import { Empty } from "."
 
 export default {

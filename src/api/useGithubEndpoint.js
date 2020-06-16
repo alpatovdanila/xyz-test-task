@@ -1,4 +1,4 @@
-//@flow;
+//@flow
 import config from './config';
 import * as React from 'react';
 
@@ -7,29 +7,31 @@ export type Method = 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT';
 export type Request = {
     method: Method,
     path: string,
+    options?:{...}
 }
 
-export const makeRequest = (request: Request): Promise => {
-    const {method, path} = request;
+export const makeRequest = <T>(request: Request): Promise<T> => {
+    const {method, path, options = {}} = request;
     return fetch(`${config.baseUrl}${path}`, {method}).then(r => r.json());
 };
 
-type Endpoint<T> = {
+type EndpointResponse<T> = {
     fetching:boolean,
-    error?:Error,
-    data:T,
-    timestamp:number,
+    error:null | Error,
+    data: null | T,
+    timestamp: number,
 }
 
-export const useGithubEndpoint = (endpointPath): Endpoint => {
-    const [fetching, setFetching] = React.useState(true);
-    const [error, setError] = React.useState(null);
-    const [data, setData] = React.useState({});
-    const [timestamp, setTimestamp] = React.useState(null);
-
+export const useGithubEndpoint = <T>(endpointPath: string): EndpointResponse<T> => {
+    
+    const [fetching, setFetching] = React.useState<boolean>(true);
+    const [error, setError] = React.useState<Error | null>(null);
+    const [data, setData] = React.useState<T | null>(null);
+    const [timestamp, setTimestamp] = React.useState(Date.now());
+    
     const get = React.useCallback(() => {
         setFetching(true);
-        makeRequest({method: 'GET', path: endpointPath})
+        makeRequest<T>({method: 'GET', path: endpointPath})
             .then(data => {
                 setData(data);
                 setTimestamp(Date.now());
@@ -43,7 +45,7 @@ export const useGithubEndpoint = (endpointPath): Endpoint => {
         throw new Error('Method not implemented')
     };
 
-    React.useEffect(get, [endpointPath.path]);
+    React.useEffect(get, [endpointPath]);
 
     return {
         fetching,

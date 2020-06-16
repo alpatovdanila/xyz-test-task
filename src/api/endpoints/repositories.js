@@ -1,16 +1,17 @@
-import {Order, ORDER_DESC} from "./constants";
+//@flow
 
-export const SORT_STARS = 'stars';
+import {type Order, orders} from "../constants";
 
-export const SORT_FORKS = 'forks';
 
-export const SORT_UPDATED = 'updated';
+const SORT_STARS = 'stars';
+const SORT_FORKS = 'forks';
+const SORT_UPDATED = 'updated';
+const SORT_BEST_MATCH = 'best-match';
+const SORT_HELP_WANTED_ISSUES = 'help-wanted-issues';
 
-export const  SORT_BEST_MATCH = '';
+export const sorts = {SORT_STARS, SORT_FORKS, SORT_UPDATED, SORT_BEST_MATCH, SORT_HELP_WANTED_ISSUES}
 
-export const SORT_HELP_WANTED_ISSUES = 'help-wanted-issues';
-
-export type Sort = SORT_STARS | SORT_UPDATED  | SORT_BEST_MATCH | SORT_HELP_WANTED_ISSUES | SORT_FORKS;
+export type Sort = $Values<typeof sorts>
 
 export type Owner = {}
 
@@ -66,17 +67,17 @@ export type Repository = {
     name: string,
     node_id: string,
     notifications_url: string,
-    open_issues: 1
-    open_issues_count: 1
+    open_issues: number,
+    open_issues_count: number,
     owner: Owner,
     private: boolean,
     pulls_url: string,
     pushed_at: string,
     releases_url: string,
-    score: 1
-    size: 952
+    score: number,
+    size: number,
     ssh_url: string,
-    stargazers_count: 110
+    stargazers_count:number,
     stargazers_url: string,
     statuses_url: string,
     subscribers_url: string,
@@ -87,14 +88,14 @@ export type Repository = {
     trees_url: string,
     updated_at: string,
     url: string,
-    watchers: 110
-    watchers_count: 110
+    watchers: number,
+    watchers_count: number,
 }
 
-export type RepositoriesSearchResult = {
+export type SearchEndpoint = {
     total_count:number,
     incomplete_results:boolean,
     items:Array<Repository>
 }
 
-export const search = (query: string, sort: Sort = SORT_BEST_MATCH, order: Order = ORDER_DESC): Request => `/search/repositories?q=${query}&sort=${sort}&order=${order}`;
+export const search = (query: string, sort?: Sort = sorts.SORT_BEST_MATCH, order?: Order = orders.ORDER_DESC) => `/search/repositories?q=${query}&sort=${sort===sorts.SORT_BEST_MATCH ? '' : sort}&order=${order}`;

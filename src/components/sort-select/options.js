@@ -1,4 +1,8 @@
-import {SORT_BEST_MATCH, SORT_FORKS, SORT_HELP_WANTED_ISSUES, SORT_STARS, SORT_UPDATED} from "../../api/constants";
+//@flow
+
+import {sorts} from "../../api/endpoints/repositories";
+
+const {SORT_BEST_MATCH, SORT_FORKS, SORT_HELP_WANTED_ISSUES, SORT_STARS, SORT_UPDATED} = sorts;
 
 export const sortOptions = [
     {label: 'Best match', sort: SORT_BEST_MATCH},

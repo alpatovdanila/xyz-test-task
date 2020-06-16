@@ -1,5 +1,9 @@
-export const ORDER_DESC = 'desc';
+//@flow
 
-export const ORDER_ASC = 'asc';
+const ORDER_DESC = 'desc';
 
-export type Order = ORDER_DESC | ORDER_ASC;
+const ORDER_ASC = 'asc';
+
+export const orders = {ORDER_DESC, ORDER_ASC};
+
+export type Order = $Values<typeof orders>

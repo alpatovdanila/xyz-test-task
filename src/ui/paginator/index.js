@@ -1,7 +1,7 @@
 // @flow
-import React, {useMemo} from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
-import {Link} from '../../atoms/link';
+import {Link} from '../link';
 
 type Props = {
     pagesCount: number,
@@ -10,7 +10,7 @@ type Props = {
 }
 
 export const Paginator = ({pagesCount, onPageClick, currentPage}: Props) => {
-    const pages = useMemo(() => Array.from({length: pagesCount}, (_, i) => i + 1), [pagesCount]);
+    const pages = React.useMemo(() => Array.from({length: pagesCount}, (_, i) => i + 1), [pagesCount]);
 
     const handlePageClick = (page, e) => {
         e.preventDefault();

@@ -1,8 +1,8 @@
 //@flow
-import React from 'react';
-import styled from 'styled-components';
+import * as React from 'react';
+import styled, {type StyledComponent} from 'styled-components';
 
-export const Empty: React.ComponentType = styled.div`
+export const Empty: StyledComponent<empty, empty, HTMLDivElement> = styled.div`
    color:gray;
 `;
 
