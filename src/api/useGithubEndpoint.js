@@ -3,14 +3,14 @@ import config from './config';
 import * as React from 'react';
 
 export type RateLimit = {
-    remaining:number,
-    limit:number,
-    reset:number,
+    remaining: number,
+    limit: number,
+    reset: number,
 }
 
 export type EndpointResponse<T> = {
-    fetching:boolean,
-    error:null | Error,
+    fetching: boolean,
+    error: null | Error,
     data: null | T,
     timestamp: number,
     rateLimit: null | RateLimit
@@ -21,7 +21,7 @@ const getRateLimits = response => {
     const remaining = +headers.get('X-RateLimit-Remaining');
     const limit = +headers.get('X-RateLimit-Limit');
     const reset = +headers.get('X-RateLimit-Reset');
-    return{
+    return {
         remaining: isNaN(remaining) ? null : remaining,
         limit: isNaN(limit) ? null : limit,
         reset: isNaN(reset) ? null : reset,
@@ -29,7 +29,7 @@ const getRateLimits = response => {
 }
 
 export const useGithubEndpoint = <T>(endpointPath: string): EndpointResponse<T> => {
-    
+
     const [fetching, setFetching] = React.useState<boolean>(true);
     const [error, setError] = React.useState<Error | null>(null);
     const [data, setData] = React.useState<T | null>(null);
@@ -52,7 +52,6 @@ export const useGithubEndpoint = <T>(endpointPath: string): EndpointResponse<T> 
             .catch(error => setError(error.message))
             .finally(() => setFetching(false));
     }, [endpointPath]);
-
 
 
     const post = (body) => {

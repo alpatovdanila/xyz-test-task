@@ -11,16 +11,19 @@ import {emojisListEndpoint} from "../api/endpoints/emojis";
 import {Preloader} from "../ui/preloader/preloader";
 import {Error} from "../ui/error";
 import {FlexItem, FlexCol} from "../ui/layout";
+import {useStore} from "../store";
 
 
 export const App = () => {
-    const languages = useGithubEndpoint(languagesListEndpoint);
-    const emojis = useGithubEndpoint(emojisListEndpoint);
+    const store = useStore();
+
 
     //if(appCrashed) return <Preloader><Error>Directories fetch failed<br/>Languages: {languages.error}<br/>Emojis: {emojis.error}</Error></Preloader>
     //if(!appReady) return <Preloader>Fetching github directories, please wait</Preloader>
     return (
         <AppWrapper>
+            {JSON.stringify(store)}
+            <button onClick={()=>store.search.fetch()}>Toggle fetching</button>
             <FlexCol spacing={32} block alignItems={"stretch"}>
                 <FlexItem>
                     <Header/>
