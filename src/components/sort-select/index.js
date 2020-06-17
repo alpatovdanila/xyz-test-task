@@ -4,7 +4,7 @@ import styled, {type StyledComponent} from 'styled-components';
 import {Link} from "../../ui/link";
 import {orders} from "../../api/constants";
 import {sortOptions} from "./options";
-
+import {useSearchUrl} from "../../routing/useSearchUrl";
 
 const orderArrow = (order) => (order === orders.ORDER_DESC) ? '🠗' : '↑';
 
@@ -15,13 +15,13 @@ type Props = {
     onOrderSelect: (order:string)=>void;
 }
 
-export const SortSelect = ({sort, order, onSortSelect, onOrderSelect}:Props) => {
-
+export const SortSelect = () => {
+    const {sort, setSort, order, setOrder} = useSearchUrl();
     const handleSortSelect = (sortOption) => {
         if (sort === sortOption.sort) {
-            onOrderSelect(order === orders.ORDER_DESC ? orders.ORDER_ASC : orders.ORDER_DESC);
+            setOrder(order === orders.ORDER_DESC ? orders.ORDER_ASC : orders.ORDER_DESC);
         } else {
-            onSortSelect(sortOption.sort);
+            setSort(sortOption.sort);
         }
     };
 

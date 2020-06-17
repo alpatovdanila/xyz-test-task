@@ -5,7 +5,7 @@ import {ListItem} from "../list-item";
 
 export default {
     component:List,
-    title: "UI/list",
+    title: "UI/List",
 }
 
 export const Component = () => (

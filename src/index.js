@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Providers} from './providers';
-import {App} from './app';
+import {Providers} from './components/providers';
+import {App} from './components/app';
 
 import * as serviceWorker from './serviceWorker';
 

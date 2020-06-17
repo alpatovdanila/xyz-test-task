@@ -98,4 +98,4 @@ export type SearchEndpoint = {
     items:Array<Repository>
 }
 
-export const search = (query: string, sort?: Sort = sorts.SORT_BEST_MATCH, order?: Order = orders.ORDER_DESC) => `/search/repositories?q=${query}&sort=${sort===sorts.SORT_BEST_MATCH ? '' : sort}&order=${order}`;
+export const repositoriesSearchEndpoint = (query: string, sort?: Sort = sorts.SORT_BEST_MATCH, order?: Order = orders.ORDER_DESC) => `/search/repositories?q=${query}&sort=${sort===sorts.SORT_BEST_MATCH ? '' : sort}&order=${order}`;

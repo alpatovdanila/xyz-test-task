@@ -4,7 +4,7 @@ import React from "react"
 import { Empty } from "."
 
 export default {
-  title: "UI/empty",
+  title: "UI/Empty",
 }
 
 export const component = () => <Empty>There is nothing there</Empty>

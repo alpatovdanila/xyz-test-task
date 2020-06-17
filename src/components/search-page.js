@@ -1,47 +1,46 @@
 //@flow
 import * as React from 'react';
-import {useParams, useHistory, useLocation} from 'react-router';
-import { constructRoutePath } from '../lib/constructRoutePath';
-import { SearchForm } from './search-form';
-import { ReposList } from './repos-list';
-import { SortSelect } from "./sort-select";
-import { useGithubEndpoint } from '../api/useGithubEndpoint';
-import { search as searchRepositories, sorts, type SearchEndpoint} from '../api/endpoints/repositories';
-import {orders} from '../api/constants';
+import {ReposList} from './repos-list';
+import {SortSelect} from "./sort-select";
+import {useGithubEndpoint} from '../api/useGithubEndpoint';
+import {repositoriesSearchEndpoint as searchRepositories, type SearchEndpoint} from '../api/endpoints/repositories';
+import {useSearchUrl} from "../routing/useSearchUrl";
+import {RateLimitDisplay} from "./rate-limit-display";
 
-
+import {Row, FlexItem, FlexCol, Col} from "../ui/layout";
+import {Error} from "../ui/error";
+import {TextLabel} from "../ui/text-label";
 
 export const SearchPage = () => {
-    const history = useHistory();
-    const location = useLocation());
-
-
-    const queryParams = React.useMemo(()=>{
-        return new URLSearchParams(params.query);
-    }, params.query)
-
-    const [searchQuery, setSearchQuery] = React.useState(params.query || '');
-    const [sort, setSort] = React.useState(queryParams.sort || sorts.SORT_BEST_MATCH);
-    const [page, setPage] = React.useState(queryParams.page || 1);
-    const [order, setOrder] = React.useState(queryParams.order || orders.ORDER_DESC);
-
-
-
-    const { data, fetching, error, timestamp } = useGithubEndpoint<SearchEndpoint>(searchRepositories(searchQuery, sort, order));
-
-    React.useEffect(() => {
-        history.push(constructRoutePath({query:searchQuery, sort, order, page}));
-    }, [sort, order, searchQuery, page]);
-
+    const {query, sort, order, page, setOrder, setSort} = useSearchUrl();
+    const {data, fetching, error, timestamp, rateLimit} = useGithubEndpoint<SearchEndpoint>(searchRepositories(query, sort, order));
     return (
-        <>
-            {JSON.stringify({sort, order, searchQuery, page, params})}
-            <SearchForm onSubmit={setSearchQuery} initialQuery={searchQuery} submitTimeout={1000} />
-            <SortSelect sort={sort} order={order} onSortSelect={setSort} onOrderSelect={setOrder} />
-            {fetching && 'fetching'}
-            {!fetching && <ReposList resultTimestamp={timestamp} result={data}/>}
-        </>
-    );
+        <FlexCol spacing={32} block>
+            <FlexItem>
+                <Row>
+                    <Col>
+                        {rateLimit && (
+                            <TextLabel>
+                                <RateLimitDisplay limit={rateLimit}/>
+                            </TextLabel>
+                        )}
+                    </Col>
+                    <Col>
+                        <SortSelect sort={sort} order={order} onSortSelect={setSort} onOrderSelect={setOrder}/>
+                    </Col>
+                </Row>
+            </FlexItem>
+            {!!error && <FlexItem>
+                <Error>{error}</Error>
+            </FlexItem>}
+            <FlexItem>
+                {!!data && <ReposList resultTimestamp={timestamp} items={data.items}/>}
+            </FlexItem>
 
+
+        </FlexCol>
+    );
 }
+
+
 

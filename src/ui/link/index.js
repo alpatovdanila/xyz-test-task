@@ -4,6 +4,6 @@ import styled, {type StyledComponent} from 'styled-components';
 
 export const Link: StyledComponent<{}, {}, HTMLAnchorElement> = styled.a`
     cursor:pointer;
-    color:blue;
-    text-decoration:underline;
+    text-decoration:none;
+    color:${props => props.theme.colors.link}
 `;

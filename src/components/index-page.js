@@ -1,11 +1,8 @@
 //@flow
 import * as React from 'react';
 import {useHistory} from 'react-router-dom';
-import {constructRoutePath} from '../lib/constructRoutePath';
+import {constructSearchRoutePath} from '../routing/constructSearchRoutePath';
 import {SearchForm} from './search-form';
+import {Empty} from "../ui/empty";
 
-export const IndexPage = () => {
-    const history = useHistory();
-    const setSearchQuery = (query) => history.push(constructRoutePath({query}));
-    return <SearchForm onSubmit={setSearchQuery} submitTimeout={500}/>
-}
+export const IndexPage = () => <Empty>Start searching by typing in the field above</Empty>

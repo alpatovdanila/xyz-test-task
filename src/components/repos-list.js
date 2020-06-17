@@ -1,16 +1,30 @@
 //@flow
 import * as React from 'react';
-import {type SearchEndpoint} from '../api/endpoints/repositories';
-import {Repository} from "./repository";
+import {type Repository as RepositoryType} from '../api/endpoints/repositories';
+import {Repository} from "../ui/repository";
+import styled from 'styled-components';
+import {FlexItem, FlexCol} from "../ui/layout";
 
 type Props = {
     resultTimestamp: number,
-    result?: SearchEndpoint
+    items?: Array<RepositoryType>
 }
 
-export const ReposList = ({result} : Props) => {
-    
-    return <>
-        {result && result.items && result.items.map(item => <Repository repository={item} key={item.id}/>)}
-    </>
+export const ReposList = ({items} : Props) => {
+    return <FlexCol spacing={24}>
+        {items && items.map(item => (
+            <ReposListItem key={item.id}>
+                <Repository repository={item}/>
+            </ReposListItem>
+        ))}
+    </FlexCol>
 }
+
+const ReposListItem = styled(FlexItem)`
+    &:not(:last-child){
+        border-bottom:1px solid ${props => props.theme.colors.gray5};
+        padding-bottom:24px;
+    }
+`
+
+

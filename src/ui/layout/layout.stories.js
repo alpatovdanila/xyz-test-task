@@ -4,7 +4,7 @@ import React from "react"
 import { Row, Col } from "."
 
 export default {
-  title: "UI/grid",
+  title: "UI/Layout",
 }
 
 export const component = () => <>

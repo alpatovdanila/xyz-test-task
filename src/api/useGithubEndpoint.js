@@ -2,24 +2,30 @@
 import config from './config';
 import * as React from 'react';
 
-export type Method = 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT';
-
-export type Request = {
-    method: Method,
-    path: string,
-    options?:{...}
+export type RateLimit = {
+    remaining:number,
+    limit:number,
+    reset:number,
 }
 
-export const makeRequest = <T>(request: Request): Promise<T> => {
-    const {method, path, options = {}} = request;
-    return fetch(`${config.baseUrl}${path}`, {method}).then(r => r.json());
-};
-
-type EndpointResponse<T> = {
+export type EndpointResponse<T> = {
     fetching:boolean,
     error:null | Error,
     data: null | T,
     timestamp: number,
+    rateLimit: null | RateLimit
+}
+
+const getRateLimits = response => {
+    const headers = response.headers;
+    const remaining = +headers.get('X-RateLimit-Remaining');
+    const limit = +headers.get('X-RateLimit-Limit');
+    const reset = +headers.get('X-RateLimit-Reset');
+    return{
+        remaining: isNaN(remaining) ? null : remaining,
+        limit: isNaN(limit) ? null : limit,
+        reset: isNaN(reset) ? null : reset,
+    };
 }
 
 export const useGithubEndpoint = <T>(endpointPath: string): EndpointResponse<T> => {
@@ -28,17 +34,25 @@ export const useGithubEndpoint = <T>(endpointPath: string): EndpointResponse<T> 
     const [error, setError] = React.useState<Error | null>(null);
     const [data, setData] = React.useState<T | null>(null);
     const [timestamp, setTimestamp] = React.useState(Date.now());
-    
+    const [rateLimit, setRateLimit] = React.useState(null);
+
+    const isConsumable = !!data && !fetching;
+
     const get = React.useCallback(() => {
         setFetching(true);
-        makeRequest<T>({method: 'GET', path: endpointPath})
+        fetch<T>(`${config.baseUrl}${endpointPath}`, {method: 'GET'})
+            .then(response => {
+                setRateLimit(getRateLimits(response));
+                return response.json();
+            })
             .then(data => {
                 setData(data);
                 setTimestamp(Date.now());
             })
-            .catch(setError)
+            .catch(error => setError(error.message))
             .finally(() => setFetching(false));
     }, [endpointPath]);
+
 
 
     const post = (body) => {
@@ -53,6 +67,8 @@ export const useGithubEndpoint = <T>(endpointPath: string): EndpointResponse<T> 
         timestamp,
         data,
         get,
-        post
+        rateLimit,
+        post,
+        isConsumable,
     }
 }

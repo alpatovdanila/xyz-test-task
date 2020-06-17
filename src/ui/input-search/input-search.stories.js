@@ -1,11 +1,11 @@
 /* eslint-disable import/no-default-export */
 import React from "react"
-import {InputText} from "."
-import {boolean} from "@storybook/addon-knobs";
+import {InputSearch} from "."
+
 
 export default {
-  title: "UI/input-text",
+  title: "UI/InputSearch",
 }
 
-export const component = () => <InputText placeholder={'Placeholder text'}/>
-export const transparent = () => <InputText transparent placeholder={'Placeholder text'}/>
+export const component = () => <InputSearch placeholder={'Placeholder text'}/>
+
