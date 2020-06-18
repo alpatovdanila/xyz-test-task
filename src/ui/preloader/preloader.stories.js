@@ -1,5 +1,5 @@
 import React from "react"
-import {Preloader} from "./";
+import {Preloader} from "./index";
 
 export default {
     title: "UI/Preloader",

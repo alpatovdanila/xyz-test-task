@@ -1,6 +1,6 @@
 /* eslint-disable import/no-default-export */
 import React from "react"
-import { Logo } from "."
+import { Logo } from "./index"
 import {withKnobs, number} from "@storybook/addon-knobs";
 
 export default {

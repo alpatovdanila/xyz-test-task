@@ -1,7 +1,7 @@
 /* eslint-disable import/no-default-export */
 import React from "react"
 
-import { StarsCount } from "."
+import { StarsCount } from "./index"
 import {withKnobs, number} from "@storybook/addon-knobs";
 
 export default {

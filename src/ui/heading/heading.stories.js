@@ -1,6 +1,6 @@
 /* eslint-disable import/no-default-export */
 import React from "react"
-import { H1, H2, H3 } from "."
+import { H1, H2, H3 } from "./index"
 
 
 export default {

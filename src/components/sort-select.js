@@ -1,8 +1,15 @@
 import * as React from "react";
-import {Link} from "../../ui/link";
-import {SORT_BEST_MATCH, SORT_FORKS, SORT_STARS, SORT_UPDATED, SORT_HELP_WANTED_ISSUES, ORDER_ASC, ORDER_DESC} from '../../model/search';
-import {useSearchUrl} from "../../routing/useSearchUrl";
-import {Flex, FlexItem} from "../../ui/layout";
+import {Link} from "../ui/link";
+import {
+    SORT_BEST_MATCH,
+    SORT_FORKS,
+    SORT_STARS,
+    SORT_UPDATED,
+    SORT_HELP_WANTED_ISSUES,
+    ORDER_ASC,
+    ORDER_DESC
+} from '../model/search';
+import {Flex, FlexItem} from "../ui/layout";
 
 
 const sortOptions = [
@@ -13,19 +20,14 @@ const sortOptions = [
     {label: 'Forks', sort: SORT_FORKS},
 ];
 
-const invertedOrder = order => order === ORDER_DESC ? ORDER_ASC : ORDER_DESC
+const invertOrder = order => order === ORDER_DESC ? ORDER_ASC : ORDER_DESC;
 
 const orderArrow = (order) => (order === ORDER_DESC) ? '🠗' : '↑';
 
 export const SortSelect = ({sort, onSortSelect, order, onOrderSelect}) => {
 
-
     const handleSortSelect = (sortOption) => {
-        if (sort === sortOption.sort) {
-            onOrderSelect(invertedOrder(order));
-        } else {
-            onSortSelect(sortOption.sort);
-        }
+        if (sort === sortOption.sort) onOrderSelect(invertOrder(order)); else onSortSelect(sortOption.sort);
     };
 
     return (

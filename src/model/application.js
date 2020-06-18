@@ -1,5 +1,5 @@
-import {receiveEmojis} from "./emojis";
-import {receiveLanguages} from "./languages";
+import {fetchEmojis, receiveEmojis} from "./emojis";
+import {fetchLanguages, receiveLanguages} from "./languages";
 import {getEmojis, getLanguages} from "../api";
 
 const SET_PRELOADING = '@application/setPreloading';
@@ -13,8 +13,8 @@ export const addError = (error) => ({type:ADD_ERROR, payload:{error}});
 export const preload = () => async (dispatch, getState) => {
     try {
         dispatch(setPreloading(true));
-        dispatch(receiveEmojis(await getEmojis()));
-        dispatch(receiveLanguages(await getLanguages()))
+        dispatch(fetchEmojis());
+        dispatch(fetchLanguages());
         dispatch(setPreloading(false));
     } catch (error) {
         dispatch(addError(error.message));

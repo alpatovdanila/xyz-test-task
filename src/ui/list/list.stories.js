@@ -1,6 +1,6 @@
 /* eslint-disable import/no-default-export */
 import React from "react"
-import { List } from "."
+import { List } from "./index"
 import {ListItem} from "../list-item";
 
 export default {

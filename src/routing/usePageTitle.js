@@ -1,10 +1,9 @@
 import * as React from "react";
-import {constructPageTitle} from "./constructPageTitle";
 
-import {constructPageTitle} from "./constructPageTitle";
-export const usePageTitle(){
-    const
-    React.useEffect(() => {
-        document.querySelector('title').innerText = constructPageTitle(params.query);
-    }, [location.search])
+import {useSearchUrl} from "./useSearchUrl";
+
+export const usePageTitleEffect = () => {
+    const {query} = useSearchUrl();
+    const title = query ? `${query} — Github Repositories Search` : `Github Repositories Search`
+    document.querySelector('title').innerText = title;
 }

@@ -1,5 +1,5 @@
 import React from "react"
-import {Repository} from "./";
+import {Repository} from "./index";
 import data from './mockData';
 
 

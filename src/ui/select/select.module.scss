@@ -1,0 +1,5 @@
+@import '../../variables';
+@import '../input-text/input-text.module.scss';
+.select{
+  @extend .input;
+}

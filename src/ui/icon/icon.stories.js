@@ -1,6 +1,6 @@
 /* eslint-disable import/no-default-export */
 import React from "react"
-import { Search, Circle, Fork, StarOutline } from "."
+import { Search, Circle, Fork, StarOutline } from "./index"
 import {withKnobs, color, number} from "@storybook/addon-knobs";
 
 export default {

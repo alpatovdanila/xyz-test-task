@@ -1,7 +1,7 @@
 /* eslint-disable import/no-default-export */
 import React from "react"
 
-import { ForksCount } from "."
+import { ForksCount } from "./index"
 import {withKnobs, number} from "@storybook/addon-knobs";
 
 export default {

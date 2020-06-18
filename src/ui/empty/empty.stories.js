@@ -1,7 +1,7 @@
 /* eslint-disable import/no-default-export */
 import React from "react"
 
-import { Empty } from "."
+import { Empty } from "./index"
 
 export default {
   title: "UI/Empty",

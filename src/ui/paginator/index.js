@@ -13,7 +13,7 @@ export const Paginator = ({pagesCount, onPageClick, currentPage}) => {
         onPageClick && onPageClick(page);
     };
 
-    return <Flex valignCenter spacing={16}>
+    return <Flex valignCenter spacing={16} wrap>
         {pages.map(page => (
             <FlexItem key={page}>
                 {(page === currentPage) && <span>{page}</span>}

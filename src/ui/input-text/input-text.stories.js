@@ -1,6 +1,6 @@
 /* eslint-disable import/no-default-export */
 import React from "react"
-import {InputText} from "."
+import {InputText} from "./index"
 import {withKnobs, boolean} from "@storybook/addon-knobs";
 
 

@@ -4,6 +4,13 @@ $spacings: 2, 4, 8, 16, 20, 24, 28, 32, 48;
   &.itemBlock {
     width: 100%
   }
+  @for $col from 1 to 12 {
+    &.col#{$col}{
+      $percentage: (100%/12)*$col;
+      flex: 0 0 $percentage;
+      max-width: $percentage;
+    }
+  }
 }
 
 .flex {
@@ -15,6 +22,10 @@ $spacings: 2, 4, 8, 16, 20, 24, 28, 32, 48;
         margin-right: #{$spacing}px;
       }
     }
+  }
+
+  &.wrap{
+    flex-wrap:wrap;
   }
 
   &.block{

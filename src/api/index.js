@@ -3,13 +3,21 @@ import {SORT_BEST_MATCH, ORDER_ASC} from "../model/search";
 
 
 export const makeApiRequest = async (method, path, options) => {
+
     const response = await fetch(`${config.baseUrl}${path}`, {
         method,
         headers: {'Authorization': `Basic ${btoa(`${config.username}:${config.token}`)}`},
         ...options
 
-    })
-    return await response.json();
+    });
+
+
+    if (response.status >= 200 && response.status <= 299) {
+        return await response.json();
+    } else {
+        const error = await response.json();
+        throw Error(error.message);
+    }
 }
 
 export const get = (path, options) => makeApiRequest('GET', path, options);
@@ -20,11 +28,11 @@ export const post = (path, options) => makeApiRequest('POST', path, options);
 export const searchRepositories = ({query, sort = SORT_BEST_MATCH, order = ORDER_ASC, page = 1, perPage = 10, lang = null}) => {
 
     let url = `/search/repositories?q=${query}`;
-    if(lang) url+=`+language:${lang}`;
-    if(sort) url+=`&sort=${sort}`;
-    if(order) url+=`&order=${order}`;
-    if(page) url+=`&page=${page}`;
-    if(perPage) url+=`&per_page=${perPage}`
+    if (lang) url += `+language:${lang}`;
+    if (sort) url += `&sort=${sort}`;
+    if (order) url += `&order=${order}`;
+    if (page) url += `&page=${page}`;
+    if (perPage) url += `&per_page=${perPage}`
 
     return get(url);
 }

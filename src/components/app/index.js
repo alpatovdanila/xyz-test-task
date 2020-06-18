@@ -3,7 +3,7 @@ import * as React from 'react';
 import styles from './app.module.scss';
 import {SearchPage} from '../../pages/search-page';
 import {IndexPage} from '../../pages/index-page';
-import {Switch, Route, Redirect} from "react-router-dom";
+import {Switch, Route, Redirect, Link} from "react-router-dom";
 import {FlexItem, Flex} from "../../ui/layout";
 import {storeContext} from "../../model";
 import {setOrder, setQuery, setPage, setSort, setLang} from "../../model/search";
@@ -14,11 +14,15 @@ import {Error} from "../../ui/error";
 import {Jello} from "../../ui/jello";
 import {Logo} from "../../ui/logo";
 import {SearchForm} from "../search-form";
-
+import {usePageTitleEffect} from "../../routing/usePageTitle";
 
 export const App = () => {
     const {state, dispatch} = React.useContext(storeContext);
     const {query, order, sort, page, lang, updateUrl} = useSearchUrl();
+
+    //Sync page title with search query and routes
+    usePageTitleEffect();
+
 
     // Preload emojis and languages
     React.useEffect(() => {
@@ -34,11 +38,13 @@ export const App = () => {
         dispatch(setLang(lang))
     }, [query, order, sort, page, lang]);
 
-    const onSearchQueryChange = query => updateUrl({query});
+
+
+
+    const handleSearchFormSubmit = ({query, lang}) => updateUrl({query, lang, page:1});
 
     return (
         <div className={styles.appWrapper}>
-            {!!state.application.errors.length && state.application.errors.map(error => <Error>{error}</Error>)}
             {state.application.preloading && <Preloader>Preloading github directories</Preloader>}
             {!state.application.preloading && (
                 <Flex col spacing={32} block>
@@ -51,9 +57,17 @@ export const App = () => {
                             <FlexItem block>
                                 <SearchForm
                                     query={state.search.query}
-                                    onQueryChange={onSearchQueryChange}
-                                    submitTimeout={500}/>
+                                    onSubmit={handleSearchFormSubmit}
+                                    submitTimeout={500}
+                                    languages={state.languages}
+                                    activeLanguage={lang}
+                            />
                             </FlexItem>
+                            {!!state.application.errors.length && (
+                                <FlexItem>
+                                    {state.application.errors.map(error => <Error>{error}</Error>)}
+                                </FlexItem>
+                            )}
                         </Flex>
                     </FlexItem>
                     <FlexItem>

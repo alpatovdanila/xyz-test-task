@@ -1,6 +1,6 @@
 import React from "react"
 import {withKnobs, text, boolean, number, } from "@storybook/addon-knobs";
-import {Paginator} from "."
+import {Paginator} from "./index"
 
 export default {
     title: "UI/Paginator",

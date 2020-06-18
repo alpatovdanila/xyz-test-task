@@ -1,7 +1,7 @@
 /* eslint-disable import/no-default-export */
 import React from "react"
 
-import { FadedAway } from "."
+import { FadedAway } from "./index"
 import {Repository} from "../repository";
 import mockData from "../repository/mockData";
 

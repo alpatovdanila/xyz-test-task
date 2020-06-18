@@ -1,6 +1,6 @@
 /* eslint-disable import/no-default-export */
 import React from "react"
-import {Jello} from "."
+import {Jello} from "./index"
 import {H1} from "../heading";
 import {withKnobs, boolean} from "@storybook/addon-knobs";
 
