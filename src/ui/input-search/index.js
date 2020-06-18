@@ -7,20 +7,26 @@ import cn from 'class-names';
 
 
 
-export const InputSearch = (props) => {
+
+export const InputSearch = ({value, onChange}) => {
     const [focused, setFocused] = React.useState(false);
     const inputRef = React.useRef();
-    console.log(inputRef);
     const classNames = cn(styles.inputSearch, {[styles.focused]:focused});
 
-
-    return <div className={classNames} onClick={()=>inputRef.current.focus()}>
+    return <div className={classNames}>
         <Flex block valignCenter spacing={8}>
             <FlexItem>
                 <Search size={24} fill={"currentColor"}/>
             </FlexItem>
-            <FlexItem block>
-                <InputText  {...props} ref={inputRef} onFocus={()=>setFocused(true)} onBlur={()=>setFocused(false)} transparent block />
+            <FlexItem block onClick={()=>inputRef.current.focus()}>
+                <InputText
+                    ref={inputRef}
+                    onFocus={()=>setFocused(true)}
+                    onBlur={()=>setFocused(false)}
+                    onChange={e => onChange(e.target.value)}
+                    value={value}
+                    transparent
+                    block />
             </FlexItem>
         </Flex>
     </div>

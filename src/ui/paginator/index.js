@@ -6,7 +6,7 @@ import {Flex, FlexItem} from "../layout";
 
 
 export const Paginator = ({pagesCount, onPageClick, currentPage}) => {
-    const pages = React.useMemo(() => Array.from({length: pagesCount}, (_, i) => i + 1), [pagesCount]);
+    const pages = React.useMemo(() => Array.from({length: pagesCount > 100 ? 100 : pagesCount}, (_, i) => i + 1), [pagesCount]);
 
     const handlePageClick = (page, e) => {
         e.preventDefault();

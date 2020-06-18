@@ -18,13 +18,15 @@ export const Repository = ({repository}) => {
 
             {repository.description && (
                 <FlexItem>
+                    {/*Setting dangerously for the emojified description text to work*/}
+                    {/*<div className={styles.description} dangerouslySetInnerHTML={{__html : description}}/>*/}
                     <div className={styles.description}>{description}</div>
                 </FlexItem>
             )}
 
             <FlexItem>
                 <Flex spacing={16} valignCenter>
-                    <FlexItem><Language language={language}/></FlexItem>
+                    {language && <FlexItem><Language language={language}/></FlexItem>}
                     <FlexItem><StarsCount stars={stargazers_count}/></FlexItem>
                     <FlexItem><ForksCount forks={forks_count}/></FlexItem>
                 </Flex>

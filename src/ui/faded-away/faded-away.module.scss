@@ -1,0 +1,6 @@
+.fadedAway{
+    opacity:0.25;
+    filter:grayscale(1);
+    pointer-events:none;
+    transition:all 0.18ms ease-out;
+}

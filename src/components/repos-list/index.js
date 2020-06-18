@@ -3,14 +3,21 @@ import * as React from 'react';
 import {Repository} from "../../ui/repository";
 import styles from './repos-list.module.scss'
 import {Flex} from "../../ui/layout";
+import cn from 'class-names';
+import {Empty} from "../../ui/empty";
+import {H1} from "../../ui/heading";
 
-export const ReposList = ({items}) => {
-    return <Flex col spacing={24}>
-        {items && items.map(item => (
+export const ReposList = ({items, invalidated = false}) => {
+    const classNames = cn(styles.reposList, {[styles.invalidated]:invalidated});
+
+    return <Flex col block spacing={24} >
+        {!!items.length && items.map(item => (
             <div className={styles.reposListItem} key={item.id}>
                 <Repository repository={item}/>
             </div>
         ))}
+        {!items.length && <Empty><H1>Nothing found</H1></Empty>}
+
     </Flex>
 }
 
