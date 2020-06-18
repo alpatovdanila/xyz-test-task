@@ -2,8 +2,6 @@
 import * as React from 'react';
 import {useHistory, useLocation} from 'react-router';
 import { constructSearchRoutePath } from './constructSearchRoutePath';
-import { sorts} from '../api/endpoints/repositories';
-import {orders} from '../api/constants';
 import {constructPageTitle} from "./constructPageTitle";
 
 export const useSearchUrl = () => {
@@ -14,8 +12,8 @@ export const useSearchUrl = () => {
         const params = new URLSearchParams(location.search);
         return {
             query:params.get('query') || null,
-            sort: params.get('sort') || sorts.SORT_BEST_MATCH,
-            order: params.get('order') || orders.ORDER_ASC,
+            sort: params.get('sort') || null,
+            order: params.get('order') || null,
             page: isNaN(+params.get('page')) ?  1 : +params.get('page'),
         }
     }, [location.search]);

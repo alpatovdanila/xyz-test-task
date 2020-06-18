@@ -1,13 +1,5 @@
 //@flow
 import * as React from 'react';
-import styled, {type StyledComponent} from 'styled-components';
+import styles from './empty.module.scss'
 
-export const Empty: StyledComponent<empty, empty, HTMLDivElement> = styled.div`
-   min-height:200px;
-   display:flex;
-   align-items:center;
-   justify-content:center;
-   color:gray;
-`;
-
-
+export const Empty = ({children, ...props}) => <div className={styles.empty} {...props}>{children}</div>

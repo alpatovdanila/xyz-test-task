@@ -1,26 +1,25 @@
 /* eslint-disable import/no-default-export */
 import React from "react"
 
-import { Row, Col } from "."
+import {FlexItem, Flex, spacingToClassName} from "."
+import {withKnobs, select, boolean} from "@storybook/addon-knobs";
 
 export default {
   title: "UI/Layout",
+  decorators:[withKnobs]
 }
 
-export const component = () => <>
-  <Row>
-    <Col>1 of 4</Col>
-    <Col>3 of 4</Col>
-    <Col>3 of 4</Col>
-    <Col>4 of 4</Col>
-  </Row>
-</>
+export const FlexContainer = () => <Flex
+    spacing={select('Spacing between items', Object.keys(spacingToClassName), 0)}
+    col={boolean('As column', false)}
+    alignCenter={boolean('alignCenter', false)}
+    valignCenter={boolean('valignCenter', false)}
+    block={boolean('block', false)}
+>
+  <FlexItem>Item1<br/>Multiline</FlexItem>
+  <FlexItem>Item2</FlexItem>
+  <FlexItem>Item3</FlexItem>
+  <FlexItem>Item4<br/>Multiline</FlexItem>
+</Flex>
 
-export const definedSizesColumns = () => <>
-  <Row>
-    <Col size={2}>2 of 12</Col>
-    <Col size={4}>4 of 12</Col>
-    <Col size={3}>3 of 12</Col>
-    <Col size={3}>3 of 12</Col>
-  </Row>
-</>
+

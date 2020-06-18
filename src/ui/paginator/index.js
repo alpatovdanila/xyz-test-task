@@ -1,15 +1,11 @@
-// @flow
+
 import * as React from 'react';
-import styled from 'styled-components';
 import {Link} from '../link';
+import {Flex, FlexItem} from "../layout";
 
-type Props = {
-    pagesCount: number,
-    currentPage: number,
-    onPageClick?: (page: number)=>void,
-}
 
-export const Paginator = ({pagesCount, onPageClick, currentPage}: Props) => {
+
+export const Paginator = ({pagesCount, onPageClick, currentPage}) => {
     const pages = React.useMemo(() => Array.from({length: pagesCount}, (_, i) => i + 1), [pagesCount]);
 
     const handlePageClick = (page, e) => {
@@ -17,27 +13,12 @@ export const Paginator = ({pagesCount, onPageClick, currentPage}: Props) => {
         onPageClick && onPageClick(page);
     };
 
-    return <PaginatorContainer>
+    return <Flex valignCenter spacing={16}>
         {pages.map(page => (
-            <PaginatorItem key={page}>
+            <FlexItem key={page}>
                 {(page === currentPage) && <span>{page}</span>}
                 {page !== currentPage && <Link onClick={(e) => handlePageClick(page, e)}>{page}</Link>}
-            </PaginatorItem>
+            </FlexItem>
         ))}
-    </PaginatorContainer>
+    </Flex>
 };
-
-const PaginatorContainer = styled.ul`
-    display:flex;
-    align-items:center;
-    list-style:none;
-    padding:0;
-    margin:0;
-    flex-wrap:wrap;
-`;
-
-const PaginatorItem = styled.li`
-    &:not(:last-child){
-        margin-right:16px;
-    }
-`;

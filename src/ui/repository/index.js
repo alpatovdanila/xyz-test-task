@@ -1,55 +1,36 @@
 import * as React from "react";
-import {type Repository as RepositoryType} from "../../api/endpoints/repositories";
 import {Link} from "../link";
-import styled from 'styled-components';
+import styles from './repository.module.scss';
 import {StarsCount} from "../stars-count";
 import {ForksCount} from "../forks-count";
 import {Language} from "../language";
-import {Flex, FlexItem, FlexCol} from "../layout";
+import {Flex, FlexItem} from "../layout";
 
-type Props = {
-    repository: RepositoryType,
-    invalidated:boolean,
-}
 
-export const Repository = ({repository, invalidated = false}: Props) => {
-    return <Container>
-        <FlexCol spacing={12}>
+
+export const Repository = ({repository}) => {
+    const {html_url, full_name, description, language, stargazers_count, forks_count} = repository;
+    return <div className={styles.repository}>
+        <Flex col spacing={16}>
             <FlexItem>
-                <Url><Link target="_blank" rel="noopener noreferrer" href={repository.html_url}>{repository.full_name}</Link></Url>
+                <div className={styles.url}><Link target="_blank" rel="noopener noreferrer" href={html_url}>{full_name}</Link></div>
             </FlexItem>
 
             {repository.description && (
                 <FlexItem>
-                    <Description>{repository.description}</Description>
+                    <div className={styles.description}>{description}</div>
                 </FlexItem>
             )}
 
             <FlexItem>
-                <Flex spacing={12} alignItems={"center"}>
-                    <FlexItem><Language language={repository.language}/></FlexItem>
-                    <FlexItem><StarsCount stars={repository.stargazers_count}/></FlexItem>
-                    <FlexItem><ForksCount forks={repository.forks_count}/></FlexItem>
+                <Flex spacing={16} valignCenter>
+                    <FlexItem><Language language={language}/></FlexItem>
+                    <FlexItem><StarsCount stars={stargazers_count}/></FlexItem>
+                    <FlexItem><ForksCount forks={forks_count}/></FlexItem>
                 </Flex>
             </FlexItem>
-        </FlexCol>
-    </Container>
+        </Flex>
+    </div>
 
 }
 
-const Container = styled.div`
-    display:block;
-`;
-
-const Url = styled.div`
-    font-size:32px;
-    color:${props => props.theme.colors.gray};
-`;
-
-const Description = styled.p`
-    line-height:146%;
-    font-size:14px;
-    margin:0;
-    padding:0;
-    max-width:800px;
-`

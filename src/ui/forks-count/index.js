@@ -9,7 +9,10 @@ export const ForksCount = ({forks}) => {
     const theme = React.useContext(ThemeContext);
     return <Flex spacing={2} verticalAlign={"middle"}>
         <FlexItem>
-            <Fork fill={theme.colors.gray2}/>
+            <TextLabel>
+                <Fork fill={"currentColor"} size={18}/>
+            </TextLabel>
+
         </FlexItem>
         <FlexItem>
             <TextLabel>{forks}</TextLabel>

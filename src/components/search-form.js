@@ -1,23 +1,18 @@
-//@flow
 import * as React from 'react';
 import {InputSearch} from '../ui/input-search';
 import {useDeferredValue} from '../lib/useDeferredValue';
 import {useSearchUrl} from "../routing/useSearchUrl";
 
-type Props = {
-    initialQuery?: string,
-    onSubmit: (value:string) => void,
-    submitTimeout?: number;
-}
 
-export const SearchForm = ({submitTimeout = 250} : Props) => {
+
+export const SearchForm = ({submitTimeout = 250}) => {
     const {query, setQuery} = useSearchUrl();
 
     const [value, setValue] = React.useState(query);
-    const deferredValue = useDeferredValue<string>(value, submitTimeout);
+    const deferredValue = useDeferredValue(value, submitTimeout);
     const [submitted, setSubmitted] = React.useState(false);
 
-    const onInputChange = (e : Event) => {
+    const onInputChange = (e) => {
         setValue(e.target.value);
         setSubmitted(false);
     }
@@ -35,7 +30,6 @@ export const SearchForm = ({submitTimeout = 250} : Props) => {
     }, [query])
     
     return <>
-        {JSON.stringify(query)}
         <InputSearch value={value} onChange={onInputChange} placeholder={"Repository name or author"} onKeyDown={handleKeyDown} block/>
     </>
     

@@ -1,14 +1,5 @@
-//@flow
+
 import * as React from 'react';
-import styled from 'styled-components';
+import styles from "./list-item.module.scss";
 
-export const ListItem: React.ComponentType = styled.div`
-    padding:8px 16px;
-    cursor:pointer;
-    &:hover{
-        background:${props => props.theme.colors.primary}; 
-        color:white;
-    }
-`;
-
-
+export const ListItem = ({children, ...props}) => <div {...props} className={styles.listItem}>{children}</div>

@@ -1,16 +1,14 @@
-import * as React from 'react';
+import {useCustomReducer} from "../model/useCustomReducer";
+import {initialState, rootReducer, storeContext} from "../model";
 import {BrowserRouter as Router} from 'react-router-dom';
-import {ThemeProvider} from 'styled-components';
-import {theme} from "../global-styles";
-import {GlobalStyle} from "../global-styles";
+import * as React from "react";
 
 export const Providers = ({children}) => {
+    const [state, dispatch] = useCustomReducer(rootReducer, initialState);
+
     return (
-        <ThemeProvider theme={theme}>
-            <GlobalStyle/>
-            <Router>
-                {children}
-            </Router>
-        </ThemeProvider>
+        <storeContext.Provider value={{state, dispatch}}>
+            <Router>{children}</Router>
+        </storeContext.Provider>
     )
 }

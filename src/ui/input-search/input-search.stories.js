@@ -2,7 +2,6 @@
 import React from "react"
 import {InputSearch} from "."
 
-
 export default {
   title: "UI/InputSearch",
 }

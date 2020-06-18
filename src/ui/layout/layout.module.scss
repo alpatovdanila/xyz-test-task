@@ -1,0 +1,60 @@
+$spacings: 2, 4, 8, 16, 20, 24, 28, 32, 48;
+
+.flexItem {
+  &.itemBlock {
+    width: 100%
+  }
+}
+
+.flex {
+
+  display: inline-flex;
+  @each $spacing in $spacings {
+    &.spacing#{$spacing} {
+      & > .flexItem:not(:last-of-type) {
+        margin-right: #{$spacing}px;
+      }
+    }
+  }
+
+  &.block{
+    display:flex;
+    width:100%;
+  }
+
+  &.valignCenter{
+    align-items: center;
+  }
+
+  &.alignCenter{
+    justify-content: center;
+  }
+}
+
+.flexCol {
+  flex-direction: column;
+  display: inline-flex;
+  @each $spacing in $spacings {
+    &.spacing#{$spacing} {
+      & > .flexItem:not(:last-of-type) {
+        margin-bottom: #{$spacing}px;
+      }
+    }
+  }
+
+  &.block{
+    display:flex;
+    width:100%;
+
+  }
+
+  &.valignCenter{
+    justify-content: center;
+  }
+
+  &.alignCenter{
+    align-items: center;
+  }
+
+}
+

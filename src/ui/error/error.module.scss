@@ -1,0 +1,9 @@
+@import '../../variables';
+.error{
+  padding:8px 16px;
+  display:block;
+  border-radius:8px;
+  border:2px solid $color-status-danger;
+  font-weight:bold;
+  color:$color-status-danger;
+}
