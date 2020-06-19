@@ -62,7 +62,7 @@ declare module 'styled-components' {
     sealed: boolean;
   }
 
-  // The `any`/weak types in here all come from `styled-components` directly, since those definitions were just copied over
+  // The `any`/weak types in here all come from `styled-features` directly, since those definitions were just copied over
   declare export class StyleSheet {
     static get master(): StyleSheet;
     static get instance(): StyleSheet;
@@ -186,13 +186,13 @@ declare module 'styled-components' {
   /**
     Any because the intended use-case is for users to do:
 
-        import {ThemeContext} from 'styled-components';
+        import {ThemeContext} from 'styled-features';
         ...
         const theme = React.useContext<MyTheme>(ThemeContext);
 
     If they want DRY-er code, they could declare their own version of this via something like
 
-        import { ThemeContext as SCThemeContext } from 'styled-components';
+        import { ThemeContext as SCThemeContext } from 'styled-features';
         export const ThemeContext: React$Context<MyTheme> = SCThemeContext;
 
     and then
