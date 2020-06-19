@@ -1,7 +1,21 @@
+// @flow
 import {addError} from "../../common/ducks/application";
 import {emojify} from "../../../lib/emojify";
 import {initialState} from "../../../store/initialState";
 import {searchRepositories} from "../../../api/repositories";
+
+export type SearchResults = {}
+
+export type SearchSlice = {
+    query: ?string,
+    page: ?string,
+    sort: ?string,
+    order: ?string,
+    fetching: boolean,
+    results: SearchResults,
+    perPage: number,
+    lang:?string
+}
 
 export const ORDER_DESC = 'desc';
 export const ORDER_ASC = 'asc';
@@ -10,6 +24,7 @@ export const SORT_FORKS = 'forks';
 export const SORT_UPDATED = 'updated';
 export const SORT_BEST_MATCH = 'best-match';
 export const SORT_HELP_WANTED_ISSUES = 'help-wanted-issues';
+
 
 const SET_QUERY = '@search/setQuery';
 const SET_LANG = '@search/setLang';
@@ -20,14 +35,23 @@ const SET_FETCHING = '@search/setFetching';
 const RECEIVE_RESULTS = '@search/receiveResults';
 const CLEAR_RESULTS = '@search/clearResults';
 
-export const setQuery = query => ({type: SET_QUERY, payload: {query}});
-export const setLang = lang => ({type: SET_LANG, payload: {lang}});
-export const setPage = page => ({type: SET_PAGE, payload: {page}});
-export const setOrder = order => ({type: SET_ORDER, payload: {order}});
-export const setSort = sort => ({type: SET_SORT, payload: {sort}});
-export const setFetching = fetching => ({type: SET_FETCHING, payload: {fetching}});
-export const clearResults = fetching => ({type: CLEAR_RESULTS});
-export const receiveResults = results => async (dispatch, getState) => {
+type Action = {
+    type:string,
+    payload?:Object,
+}
+
+type Thunk = (dispatch:(action:Action)=>void, getState = ()=>Object)=>void;
+
+
+export const setQuery = (query:?string) : Action => ({type: SET_QUERY, payload: {query}});
+export const setLang = (lang:?string) : Action => ({type: SET_LANG, payload: {lang}});
+export const setPage = (page:?string) : Action=> ({type: SET_PAGE, payload: {page}});
+export const setOrder = (order:?string) : Action=> ({type: SET_ORDER, payload: {order}});
+export const setSort = (sort:?string) : Action=> ({type: SET_SORT, payload: {sort}});
+export const setFetching = (fetching:boolean): Action => ({type: SET_FETCHING, payload: {fetching}});
+export const clearResults = () : Action => ({type: CLEAR_RESULTS});
+
+export const receiveResults = (results:SearchResults): Thunk => async (dispatch, getState) => {
     dispatch(({type: RECEIVE_RESULTS, payload: {results, emojis: getState().emojis}}))
 }
 
@@ -45,7 +69,7 @@ export const invalidate = () => async (dispatch, getState) => {
     }
 }
 
-export const searchReducer = (state, action) => {
+export const searchReducer = (state:SearchSlice, action) => {
     switch (action.type) {
         case SET_QUERY:
             return {...state, query: action.payload.query}

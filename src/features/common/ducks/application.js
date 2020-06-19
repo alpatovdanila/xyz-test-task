@@ -5,7 +5,7 @@ import {fetchLanguages} from "./languages";
 
 const SET_PRELOADING = '@application/setPreloading';
 const SET_CRASHED = '@application/setCrashed';
-const ADD_ERROR: boolean = '@application/addError';
+const ADD_ERROR = '@application/addError';
 
 export const setPreloading = (preloading :boolean)=> ({type: SET_PRELOADING, payload: {preloading}});
 export const setCrashed = (crashed:boolean) => ({type: SET_CRASHED, payload: {crashed}});
