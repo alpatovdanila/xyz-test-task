@@ -1,3 +1,4 @@
+// @flow
 export const initialState = {
     application: {preloading: true, crashed: false, errors: []},
     emojis: {},

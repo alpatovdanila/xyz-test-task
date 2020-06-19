@@ -1,3 +1,4 @@
+// @flow
 import * as React from 'react';
 import {applicationReducer} from "../features/common/ducks/application";
 import {emojisReducer} from "../features/common/ducks/emojis";

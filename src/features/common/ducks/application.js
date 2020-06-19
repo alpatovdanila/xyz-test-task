@@ -1,15 +1,15 @@
-import {fetchEmojis, receiveEmojis} from "./emojis";
-import {fetchLanguages, receiveLanguages} from "./languages";
-import {getEmojis} from "../../../api/request";
-import {getLanguages} from "../../../api/languages";
+// @flow
+import {fetchEmojis} from "./emojis";
+import {fetchLanguages} from "./languages";
+
 
 const SET_PRELOADING = '@application/setPreloading';
 const SET_CRASHED = '@application/setCrashed';
-const ADD_ERROR = '@application/addError';
+const ADD_ERROR: boolean = '@application/addError';
 
-export const setPreloading = preloading => ({type: SET_PRELOADING, payload: {preloading}});
-export const setCrashed = crashed => ({type: SET_CRASHED, payload: {crashed}});
-export const addError = (error) => ({type:ADD_ERROR, payload:{error}});
+export const setPreloading = (preloading :boolean)=> ({type: SET_PRELOADING, payload: {preloading}});
+export const setCrashed = (crashed:boolean) => ({type: SET_CRASHED, payload: {crashed}});
+export const addError = (error:number) => ({type:ADD_ERROR, payload:{error}});
 
 export const preload = () => async (dispatch, getState) => {
     try {

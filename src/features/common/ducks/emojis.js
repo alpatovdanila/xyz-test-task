@@ -1,10 +1,11 @@
+// @flow
 import {getEmojis} from "../../../api/emojis";
 
 const RECEIVE_EMOJIS = '@emojis/receive';
 
-export const receiveEmojis = emojis => ({type:RECEIVE_EMOJIS, payload:{emojis}});
-export const fetchEmojis = () => async dispatch => {
+export const receiveEmojis = (emojis:Object) => ({type:RECEIVE_EMOJIS, payload:{emojis}});
 
+export const fetchEmojis = () => async dispatch => {
     dispatch(receiveEmojis(await getEmojis()))
 }
 
