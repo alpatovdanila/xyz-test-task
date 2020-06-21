@@ -1,24 +1,22 @@
 //@flow
 import * as React from 'react';
 import styles from './app.module.scss';
-
-import {usePageTitleEffect} from "./routing/usePageTitleEffect";
 import {storeContext} from "./store/";
-import {preload} from "./features/common/ducks/application";
-
+import {preload} from "./store/ducks/application";
 import {Preloader} from "./ui/preloader";
 import {FlexItem, Flex} from "./ui/layout";
-import {Header} from "./features/common/components/header";
-import {Routes} from "./routing/routes";
+import {Header} from "./components/common/header";
+import {Routes} from "./routes";
 import {Error} from "./ui/error";
+import {Footer} from "./components/common/footer";
 
 
 export const App = () => {
-    const {state:{application}, dispatch} = React.useContext(storeContext);
-    usePageTitleEffect();
+    const {state, state: {application}, dispatch} = React.useContext(storeContext);
+
     React.useEffect(() => dispatch(preload()), []);
 
-    if(application.preloading) return <Preloader>Preloading github directories</Preloader>
+    if (application.preloading) return <Preloader>Preloading github directories</Preloader>;
 
     return (
         <div className={styles.appWrapper}>
@@ -26,11 +24,15 @@ export const App = () => {
                 <FlexItem block><Header/></FlexItem>
                 {!!application.errors.length && (
                     <FlexItem>
-                        {application.errors.map(error => <Error>{error}</Error>)}
+                        {application.errors.map(error => <Error>{error.message}</Error>)}
                     </FlexItem>
                 )}
-                <FlexItem><Routes/></FlexItem>
-
+                <FlexItem>
+                <Routes/>
+            </FlexItem>
+                <FlexItem>
+                    <Footer/>
+                </FlexItem>
             </Flex>
         </div>
     );

@@ -1,3 +1,4 @@
+// @flow
 import * as React from "react";
 import {Link} from "../link";
 import styles from './repository.module.scss';
@@ -5,10 +6,11 @@ import {StarsCount} from "../stars-count";
 import {ForksCount} from "../forks-count";
 import {Language} from "../language";
 import {Flex, FlexItem} from "../layout";
+import type {Repository as TRepository} from "../../store/types/repository";
 
 
 
-export const Repository = ({repository}) => {
+export const Repository = ({repository}:TRepository) => {
     const {html_url, full_name, description, language, stargazers_count, forks_count} = repository;
     return <div className={styles.repository}>
         <Flex col spacing={16}>

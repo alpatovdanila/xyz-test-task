@@ -1,18 +1,18 @@
 import * as React from 'react';
-import {SortSelect} from "../../features/search/components/sort-select";
-import {ReposList} from "../../features/search/components/repos-list";
+import {SortSelect} from "../../components/search/sort-select";
+import {ReposList} from "../../components/search/repos-list";
 import {FlexItem, Flex} from "../../ui/layout";
 
 import {storeContext} from "../../store";
-import {getTotalPages} from "../../features/search/ducks/search";
+import {getTotalPages} from "../../store/ducks/search";
 import {FadedAway} from "../../ui/faded-away";
 import {Paginator} from "../../ui/paginator";
 import {useGetParams} from "../../lib/useGetParams";
 
-import {SearchResultsMeta} from "../../features/search/components/search-results-meta";
+import {SearchResultsMeta} from "../../components/search/search-results-meta";
 import {useSearchPage} from "./useSearchPage";
 
-export const SearchPage = () => {
+export const Search = () => {
 
     useSearchPage();
 

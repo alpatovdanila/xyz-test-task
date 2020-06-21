@@ -2,11 +2,11 @@
 import * as React from 'react';
 import {Empty} from "../ui/empty";
 import {useContext} from "react";
-import {clearResults} from "../features/search/ducks/search";
+import {clearResults} from "../store/ducks/search";
 import {storeContext} from "../store";
 
 
-export const IndexPage = () => {
+export const Index = () => {
     const {dispatch} = useContext(storeContext);
 
     React.useEffect(()=>{

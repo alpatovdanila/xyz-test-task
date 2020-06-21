@@ -1,8 +1,11 @@
+// @flow
 import * as React from "react";
 import styles from './jello.module.scss';
-import cn from 'class-names';
+import cn from 'classnames';
 
-export const Jello = ({infinite, children, ...props}) => {
+type Props = {infinite?:boolean, children: React.Node, ...}
+
+export const Jello = ({infinite = false, children, ...props}: Props) => {
     const classNames = cn(styles.jello, {[styles.infinite]:infinite});
     return <div {...props}  className={classNames}>{children}</div>
 }

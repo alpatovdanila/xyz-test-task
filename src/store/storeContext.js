@@ -1,3 +1,5 @@
 // @flow
 import * as React from "react";
-export const storeContext = React.createContext();
+import type {RootSlice} from "./types/common";
+import type {DispatchFunction} from "./types";
+export const storeContext = React.createContext<{state?:RootSlice, dispatch?:DispatchFunction}>({});

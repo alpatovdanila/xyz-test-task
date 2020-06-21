@@ -1,5 +1,6 @@
 [ignore]
 .*/node_modules/*.
+.*/build/*.
 [include]
 
 [libs]
@@ -7,6 +8,11 @@
 [lints]
 
 [options]
+module.file_ext=.js
+module.file_ext=.scss
+module.name_mapper.extension='scss' -> 'empty/object'
+module.name_mapper.extension='svg' -> '/src/lib/SVGModule.js.flow'
+suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
 
 [strict]
 nonstrict-import

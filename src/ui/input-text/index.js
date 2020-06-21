@@ -1,10 +1,11 @@
-// @flow
+
 import * as React from 'react';
 import styles from './input-text.module.scss';
-import cn from 'class-names';
+import cn from 'classnames';
 
+type Props = {transparent:boolean, block:boolean, ...}
 
-export const InputText = React.forwardRef(({transparent= false, block = false, ...props}, ref) => {
+export const InputText = React.forwardRef(({transparent= false, block = false, ...props}: Props, ref) => {
 
     const classNames = cn(styles.input, {
         [styles.block]:block,

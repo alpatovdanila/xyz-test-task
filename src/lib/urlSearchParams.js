@@ -1,4 +1,5 @@
-export const createParamsUrl = (searchParams) => {
+// @flow
+export const createParamsUrl = (searchParams:Object) : string => {
     const params = new URLSearchParams();
     for (let key in searchParams) {
         const value = searchParams[key];
@@ -8,7 +9,7 @@ export const createParamsUrl = (searchParams) => {
 }
 
 
-export const extractParams = (url) => {
+export const extractParams = (url:string) : Object => {
     const extracted = {};
     const searchParams = new URLSearchParams(url);
 

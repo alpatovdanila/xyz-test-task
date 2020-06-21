@@ -1,4 +1,5 @@
-export const objectSlice = (object, sliceDefinition) => {
+// @flow
+export const objectSlice = (object: Object, sliceDefinition: Object) : Object => {
     const slice = {};
 
     for(const [key, defaultValue] of Object.entries(sliceDefinition)){

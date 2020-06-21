@@ -1,5 +1,6 @@
-import config from './config';
+import config from '../config';
 import {createParamsUrl} from "../lib/urlSearchParams";
+import {fetchEmojis} from "../store/ducks/emojis";
 
 
 
@@ -7,7 +8,7 @@ export const makeApiRequest = async (method, path, options = {headers:{}}) => {
     const response = await fetch(`${config.baseUrl}${path}`, {
         method,
         headers: {
-            'Authorization': `Basic ${btoa(`${config.username}:${config.token}`)}`,
+            'Authorization': `Basic ${btoa(`${config.apiUsername}:${config.apiToken}`)}`,
             ...options.headers
         },
     });
@@ -23,5 +24,8 @@ export const makeApiRequest = async (method, path, options = {headers:{}}) => {
 export const get = (path, params) => makeApiRequest('GET', `${path}${params ? `?${createParamsUrl(params)}` : ''}`);
 
 export const post = (path, options) => makeApiRequest('POST', path, options);
+
+
+
 
 

@@ -1,8 +1,11 @@
-// @flow
+import {ORDER_DESC, SORT_BEST_MATCH} from "./ducks/search";
+
 export const initialState = {
-    application: {preloading: true, crashed: false, errors: []},
-    emojis: {},
-    languages: {},
+    application: {
+        preloading: true,
+        crashed: false,
+        errors: []
+    },
     search: {
         query: null,
         page: null,
@@ -11,6 +14,8 @@ export const initialState = {
         fetching: false,
         results: {},
         perPage: 30,
-        lang:'',
-    }
+        lang: null,
+    },
+    emojis: {},
+    languages: [],
 }

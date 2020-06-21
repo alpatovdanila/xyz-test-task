@@ -1,5 +1,6 @@
+// @flow
 import * as React from "react";
-import {Link} from "../../../ui/link";
+import {Link} from "../../ui/link";
 import {
     SORT_BEST_MATCH,
     SORT_FORKS,
@@ -8,8 +9,8 @@ import {
     SORT_HELP_WANTED_ISSUES,
     ORDER_ASC,
     ORDER_DESC
-} from '../ducks/search';
-import {Flex, FlexItem} from "../../../ui/layout";
+} from '../../store/ducks/search';
+import {Flex, FlexItem} from "../../ui/layout";
 
 
 const sortOptions = [
@@ -24,10 +25,14 @@ const invertOrder = order => order === ORDER_DESC ? ORDER_ASC : ORDER_DESC;
 
 const orderArrow = (order) => (order === ORDER_DESC) ? '🠗' : '↑';
 
-export const SortSelect = ({sort, onSortSelect, order, onOrderSelect}) => {
+type Props = { sort: ?string, onSortSelect: ?(string)=>void, order: ?string, onOrderSelect: ?(string)=>void }
+
+export const SortSelect = ({sort, onSortSelect, order, onOrderSelect}: Props) => {
 
     const handleSortSelect = (sortOption) => {
-        if (sort === sortOption.sort) onOrderSelect(invertOrder(order)); else onSortSelect(sortOption.sort);
+        if (!!onOrderSelect && sort === sortOption.sort) onOrderSelect(invertOrder(order)); else {
+            if (onSortSelect) onSortSelect(sortOption.sort);
+        }
     };
 
     return (

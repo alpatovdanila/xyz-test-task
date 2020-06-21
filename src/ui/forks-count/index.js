@@ -1,10 +1,11 @@
+// @flow
 import * as React from 'react';
 import {Fork} from "../icon";
 import {TextLabel} from "../text-label";
 import {Flex, FlexItem} from "../layout";
 
+export const ForksCount = ({forks = 0}:{forks?:number}) => {
 
-export const ForksCount = ({forks}) => {
     return <Flex spacing={2} verticalAlign={"middle"}>
         <FlexItem>
             <TextLabel>

@@ -1,0 +1,3 @@
+// @flow
+import * as React from 'react';
+declare export default { ReactComponent: React.Node }
