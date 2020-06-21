@@ -4,7 +4,7 @@ import {useHistory, useLocation} from 'react-router';
 import {createParamsUrl, extractParams} from "./urlSearchParams";
 import {objectSlice} from "./objectSlice";
 
-export const useGetParams = (sliceDefinition: Object) => {
+export const useGetParams = (sliceDefinition?: Object) => {
     const location = useLocation();
     const history = useHistory();
 

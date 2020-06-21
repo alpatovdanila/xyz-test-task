@@ -1,5 +1,4 @@
 // @flow
-import {FlexItem} from "../../ui/layout";
 import * as React from "react";
 import type {SearchSlice} from "../../store/types/search";
 

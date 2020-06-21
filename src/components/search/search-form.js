@@ -16,18 +16,18 @@ export const SearchForm = ({languages, activeLanguage, query, onSubmit, submitTi
     const [language, setLanguage] = React.useState(activeLanguage);
     const [changed, setChanged] = React.useState(false);
 
-    const submit = () => {
-        if (value && value.trim() && changed){
-            onSubmit({query: value, language: language});
-            setChanged(false);
-        }
-    };
+
 
     React.useEffect(()=>setChanged(true), [value, language]);
 
     // Debounced Auto-submit
     React.useEffect(() => {
-        const timer = setTimeout(submit , submitTimeout);
+        const timer = setTimeout(()=>{
+            if (value && value.trim() && changed){
+                onSubmit({query: value, language: language});
+                setChanged(false);
+            }
+        } , submitTimeout);
         return () => clearTimeout(timer);
     }, [value, language, submitTimeout, changed]);
 
