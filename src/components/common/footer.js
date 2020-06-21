@@ -11,7 +11,7 @@ import {TextLabel} from "../../ui/text-label";
 export const Footer = () => {
     return (
         <Flex block alignCenter>
-            <FlexItem><TextLabel><Link href={`${config.appUrl}/storybook/`}>Storybook</Link></TextLabel></FlexItem>
+            <FlexItem><TextLabel><Link href={`${config.appUrl}/storybook/index.html`}>Storybook</Link></TextLabel></FlexItem>
         </Flex>
     )
 }
