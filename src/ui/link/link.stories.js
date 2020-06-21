@@ -6,4 +6,4 @@ export default {
   title: "UI/Link",
 }
 
-export const component = () => <Link>Link text</Link>
+export const Сomponent = () => <Link>Link text</Link>
