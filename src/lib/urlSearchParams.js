@@ -5,7 +5,7 @@ export const createParamsUrl = (searchParams:Object) : string => {
         const value = searchParams[key];
         if (value) params.append(key, searchParams[key]);
     }
-    return params.toString();
+    return decodeURIComponent(params.toString());
 }
 
 
